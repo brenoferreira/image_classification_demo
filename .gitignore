@@ -125,5 +125,11 @@ dmypy.json
 
 # downloaded images
 images/*.jpg
+images/*.metadata
+images/*.time
+
+.DS_Store
+
+.idea/
 
 .vscode/
