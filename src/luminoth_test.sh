@@ -1,6 +1,9 @@
 #!/bin/bash
 pipenv shell
 
+lumi checkpoint refresh
+lumi checkpoint download accurate
+
 FILES=images/*.jpg
 for f in $FILES
 do
