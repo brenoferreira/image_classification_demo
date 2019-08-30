@@ -8,7 +8,7 @@ verify_ssl = true
 [packages]
 requests = "*"
 pillow = "*"
-tensorflow = "*"
+tensorflow-gpu = "*"
 luminoth = "*"
 click = "*"
 
