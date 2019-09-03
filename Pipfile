@@ -8,9 +8,11 @@ verify_ssl = true
 [packages]
 requests = "*"
 pillow = "*"
-tensorflow-gpu = "*"
+tensorflow = "*"
 luminoth = "*"
 click = "*"
+tensorflow-hub = "*"
+numpy = "*"
 
 [requires]
 python_version = "3.7"
