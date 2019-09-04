@@ -8,15 +8,19 @@ import tensorflow_hub as hub
 from tensorflow.keras import layers
 from PIL import Image
 
-tf.enable_eager_execution()
+# tf.enable_eager_execution()
 
-classifier_url ="https://tfhub.dev/google/tf2-preview/mobilenet_v2/classification/2"
+classifier_url ="https://tfhub.dev/google/imagenet/inception_v3/classification/3"
 
 IMAGE_SHAPE = (224, 224)
 
+module = hub.Module(classifier_url, tags=[])
 classifier = tf.keras.Sequential([
-    hub.KerasLayer(classifier_url, input_shape=IMAGE_SHAPE+(3,))
+    hub.KerasLayer(module, input_shape=IMAGE_SHAPE+(3,))
 ])
+
+labels_path = tf.keras.utils.get_file('ImageNetLabels.txt','https://storage.googleapis.com/download.tensorflow.org/data/ImageNetLabels.txt')
+imagenet_labels = np.array(open(labels_path).read().splitlines())
 
 PATH = os.getcwd()
 
@@ -27,13 +31,10 @@ def classify(image_path):
         np_array = np.array(image)/255.0
         shape = np_array.shape
 
-
         result = classifier.predict(np_array[np.newaxis, ...])
 
         predicted_class = np.argmax(result[0], axis=-1)
 
-        labels_path = tf.keras.utils.get_file('ImageNetLabels.txt','https://storage.googleapis.com/download.tensorflow.org/data/ImageNetLabels.txt')
-        imagenet_labels = np.array(open(labels_path).read().splitlines())
         predicted_class_name = imagenet_labels[predicted_class]
         print("Prediction for {}: {}".format(image_path, predicted_class_name))
     except:
